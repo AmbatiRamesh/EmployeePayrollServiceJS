@@ -1,36 +1,40 @@
 console.log("----------Welcome to EmployeeWage---------");
-const  FULL_TIME_HRS= 8;
-const  PART_TIME_HRS= 4;
-const  PART_TIME= 1;
-const  FULL_TIME= 2;
-const  WAGE_PER_HRS= 20;
+const IS_PART_TIME = 1;
+const IS_FULL_TIME = 2;
+const PART_TIME_HOURS = 4;
+const FULL_TIME_HOURS = 8;
+const WAGE_PER_HOUR = 20;
 const NUM_OF_WORKING_DAYS = 20;
-const MAX_HRS_IN_MONTH =160;
-    let monthlyWage=0;
-    let empWage=0;
-    function getWorkingHrs(empCheck){
-        switch(empCheck){
-            case PART_TIME:
-                console.log("Employee is Part time");
-                return PART_TIME_HRS;
-                break;
-            case FULL_TIME:
-                console.log("Employee is Full time");
-                return FULL_TIME_HRS;
-                break;
-            default:
-               console.log("Employee is Absent");
-                return 0;
-               break;
-        }
-        }
-        let empHrs=0;let day = 0; totalWorkingHrs =0;
-        while(day<=NUM_OF_WORKING_DAYS && totalWorkingHrs<=MAX_HRS_IN_MONTH ){
-            totalWorkingHrs++;
-        let empCheck=Math.floor(Math.random()*10) % 3;
-        day++;
-        empHrs += getWorkingHrs(empCheck);
-        empWage = empHrs*WAGE_PER_HRS;
-        monthlyWage += empWage;
-    console.log("Total hrs : " + totalWorkingHrs + " EmpWage : "+empWage + " monthlyWage : " + monthlyWage);
+const MAX_HRS_IN_MONTH = 100;
+
+let totalEmployeeHours = 0;
+let totalWorkingDays = 0;
+let employeeDailyWageArray = new Array();
+
+function getWorkingHours(employeeCheck){
+    switch (employeeCheck) {
+        case IS_PART_TIME:
+            return PART_TIME_HOURS;
+    
+        case IS_FULL_TIME:
+            return FULL_TIME_HOURS;
+    
+        default:
+            return 0;
     }
+}
+
+function calculateDailyWage(employeeHours) {
+    return employeeHours * WAGE_PER_HOUR;
+}
+
+while(totalEmployeeHours <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS){
+    totalWorkingDays++;
+    let employeeCheck = Math.floor(Math.random() * 10) % 3;
+    let employeeHours = getWorkingHours(employeeCheck);
+    totalEmployeeHours += employeeHours;
+    employeeDailyWageArray.push(calculateDailyWage(employeeHours));
+}
+
+let employeeWage = calculateDailyWage(totalEmployeeHours);
+console.log("Total days : " + totalWorkingDays +"\nTotal Working Hours : " + totalEmployeeHours + "\nTotal Employee Wage : " + employeeWage);
