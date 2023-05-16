@@ -16,7 +16,11 @@ class EmployeePayrollData{
 
     getName(){ return this.name; }
     setName(name){
-        this.name = name;
+        let nameRegex = RegExp("^[A-Z]{1}[a-z]{3,}$");
+        if(nameRegex.test(name))
+            this.name = name;
+        else
+            throw "NAME is Incorrect";
     }
 
     getSalary(){ return this.salary; }
@@ -44,10 +48,12 @@ class EmployeePayrollData{
 //calling the constructor
 let employeePayrollData = new EmployeePayrollData(1, "Ramesh", 45000);
 console.log(employeePayrollData.toString());
-employeePayrollData.id = 2;
-employeePayrollData.name = "Chandu";
-employeePayrollData.salary = 68000;
-console.log(employeePayrollData.toString());
+try{
+    employeePayrollData.id = 2;
+    employeePayrollData.name = "Chandu";
+    employeePayrollData.salary = 68000;
+    console.log(employeePayrollData.toString());
+}catch(e){console.error(e);}
 
 let newemployeePayrollData = new EmployeePayrollData(3, "Vinay", 48000, "M", new Date());
 console.log(newemployeePayrollData.toString());
